@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4b1fa6">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" href="img/icone-192.png">
+    <title>Perfil — UpLearn</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="uplearn.css">
+    <script src="acess.js"></script>
+</head>
+
+<body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+    <div class="app">
+        <nav id="nav"></nav>
+
+        <main id="conteudo" class="pagina" style="max-width:760px">
+            <header id="topo"></header>
+
+            <section class="perfil-topo entrar" aria-labelledby="nomePerfil">
+                <span class="pers" id="avatarTopo" data-p="circulo rosa feliz"></span>
+                <h1 id="nomePerfil">…</h1>
+                <p id="emailPerfil"></p>
+                <span class="selo" id="seloSerie" hidden style="background:#fff;color:var(--roxo)"></span>
+            </section>
+
+            <section class="secao" aria-labelledby="tAcess">
+                <h2 id="tAcess" style="margin-bottom:12px">Acessibilidade rápida</h2>
+                <div class="acess-grade" style="grid-template-columns:repeat(2,1fr)">
+                    <button type="button" class="acess-op" id="qFonte" aria-pressed="false"><i class="fa-solid fa-font" aria-hidden="true"></i>Tamanho da letra<small id="qFonteVal"></small></button>
+                    <button type="button" class="acess-op" id="qAudio" aria-pressed="false"><i class="fa-solid fa-volume-high" aria-hidden="true"></i>Áudio<small>Ouvir a tela</small></button>
+                    <button type="button" class="acess-op" id="qLibras" aria-pressed="false"><i class="fa-solid fa-hands" aria-hidden="true"></i>Libras<small>Tradutor VLibras</small></button>
+                    <button type="button" class="acess-op" id="qContraste" aria-pressed="false"><i class="fa-solid fa-circle-half-stroke" aria-hidden="true"></i>Alto contraste<small>Cores mais fortes</small></button>
+                </div>
+                <p style="margin-top:10px"><a href="acessibilidade.html" style="font-weight:700">Ver todos os ajustes de acessibilidade →</a></p>
+            </section>
+
+            <section class="secao" aria-labelledby="tAtal">
+                <h2 id="tAtal" style="margin-bottom:12px">Atalhos</h2>
+                <div class="atalhos-lista">
+                    <a class="atalho-linha" href="estudos.html"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i>Meu plano de estudos<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></a>
+                    <a class="atalho-linha" href="desempenho.html"><i class="fa-solid fa-chart-simple" aria-hidden="true"></i>Meu desempenho<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></a>
+                    <a class="atalho-linha" href="desempenho.html#conquistas"><i class="fa-solid fa-trophy" aria-hidden="true"></i>Minhas conquistas<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></a>
+                    <a class="atalho-linha" href="#dados"><i class="fa-solid fa-user-gear" aria-hidden="true"></i>Configurações da conta<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></a>
+                </div>
+            </section>
+
+            <section class="secao card" id="dados" aria-labelledby="tDados">
+                <h2 id="tDados" style="margin-bottom:6px">Editar perfil e preferências</h2>
+                <p class="subtitulo" style="margin-bottom:16px">Isso ajuda o Up a explicar do seu jeito. Tudo é opcional e você muda quando quiser.</p>
+
+                <div id="avisoPerfil" class="cu-notificacao-area"></div>
+
+                <form id="formPerfil" novalidate>
+                    <div class="campo">
+                        <label for="nome">Nome</label>
+                        <input type="text" id="nome" maxlength="80" autocomplete="given-name" required>
+                        <p class="campo__erro" id="nome-erro" role="alert"></p>
+                    </div>
+
+                    <div class="campo">
+                        <span class="rotulo" id="rotAvatar">Seu personagem</span>
+                        <div class="avatares" id="avatares" role="group" aria-labelledby="rotAvatar"></div>
+                    </div>
+
+                    <div class="campo">
+                        <label for="serie">Série</label>
+                        <select id="serie"><option value="">Prefiro não dizer</option></select>
+                    </div>
+
+                    <div class="campo">
+                        <span class="rotulo" id="rotMaterias">Matérias de interesse</span>
+                        <div class="opcoes" id="materias" role="group" aria-labelledby="rotMaterias"></div>
+                    </div>
+
+                    <div class="campo">
+                        <label for="objetivo">Objetivo de aprendizagem</label>
+                        <input type="text" id="objetivo" maxlength="200" placeholder="Ex.: ir bem na prova de ciências">
+                    </div>
+
+                    <div class="campo">
+                        <span class="rotulo" id="rotEstilo">Como você prefere aprender</span>
+                        <div class="opcoes" id="estilos" role="group" aria-labelledby="rotEstilo"></div>
+                    </div>
+
+                    <div class="campo">
+                        <span class="rotulo" id="rotSessao">Sessões de estudo</span>
+                        <div class="opcoes" id="sessoes" role="group" aria-labelledby="rotSessao"></div>
+                    </div>
+
+                    <div class="campo">
+                        <span class="rotulo" id="rotResp">Respostas do Up</span>
+                        <div class="opcoes" id="respostas" role="group" aria-labelledby="rotResp"></div>
+                    </div>
+
+                    <button type="submit" class="btn btn--primario btn--bloco" id="btnSalvar">Salvar alterações</button>
+                </form>
+            </section>
+
+            <section class="secao" aria-labelledby="tNotif">
+                <h2 id="tNotif" style="margin-bottom:12px">Notificações</h2>
+                <div id="listaNotif" class="grade"><div class="esqueleto" style="min-height:60px" aria-hidden="true"></div></div>
+            </section>
+
+            <section class="secao card zona-perigo" aria-labelledby="tPriv">
+                <h2 id="tPriv" style="margin-bottom:8px">Seus dados e privacidade</h2>
+                <p class="subtitulo" style="margin-bottom:12px">Guardamos seu nome, e-mail, preferências, planos, resultados de exercícios e as perguntas que você faz ao Up, só para o app funcionar. Fotos e arquivos que você envia ao Up são lidos na hora e não ficam guardados. Nada disso aparece para outras pessoas. Se você tem menos de 18 anos, um responsável pode acompanhar. <a href="termos.html">Ler os Termos e a Política de Privacidade</a>.</p>
+                <div style="display:flex;flex-wrap:wrap;gap:10px">
+                    <a class="btn btn--suave" href="onboarding.html"><i class="fa-solid fa-rotate" aria-hidden="true"></i> Refazer “como eu aprendo”</a>
+                    <button type="button" class="btn btn--suave" id="btnExportar"><i class="fa-solid fa-download" aria-hidden="true"></i> Baixar meus dados</button>
+                    <button type="button" class="btn btn--contorno" id="btnSair"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i> Sair da conta</button>
+                    <button type="button" class="btn btn--perigo" id="btnExcluir"><i class="fa-solid fa-trash" aria-hidden="true"></i> Excluir minha conta</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="sessao.js"></script>
+    <script src="personagens.js"></script>
+    <script src="notificacao.js"></script>
+    <script src="app.js"></script>
+    <script src="perfil.js"></script>
+</body>
+
+</html>

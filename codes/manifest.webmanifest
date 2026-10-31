@@ -1,0 +1,15 @@
+{
+    "name": "UpLearn",
+    "short_name": "UpLearn",
+    "description": "Aprenda do seu jeito, com ajuda do Up.",
+    "lang": "pt-BR",
+    "start_url": "inicio.html",
+    "scope": "./",
+    "display": "standalone",
+    "background_color": "#4b1fa6",
+    "theme_color": "#4b1fa6",
+    "icons": [
+        { "src": "img/icone-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+        { "src": "img/icone-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+    ]
+}

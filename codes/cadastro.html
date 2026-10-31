@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4b1fa6">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" href="img/icone-192.png">
+    <title>Criar conta — UpLearn</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="uplearn.css">
+    <script src="acess.js"></script>
+</head>
+
+<body>
+    <a class="skip-link" href="#conteudo">Pular para o formulário</a>
+
+    <div class="auth auth--cadastro">
+        <div class="auth__topo">
+            <a class="marca" href="index.html" aria-label="UpLearn, voltar para o início"><img src="img/logo.png" alt=""></a>
+            <p class="auth__frase">Sua jornada começa aqui.</p>
+            <img class="auth__ilustra" src="img/evoluir.png" alt="" width="387" height="559" decoding="async">
+        </div>
+
+        <main class="auth__folha" id="conteudo">
+            <div class="auth__miolo">
+                <h1>Cadastrar</h1>
+                <p class="subtitulo">Crie sua conta em 1 minuto.</p>
+
+                <div id="avisoCadastro" class="cu-notificacao-area"></div>
+
+                <form id="formCadastro" novalidate>
+                    <div class="campo">
+                        <label for="nome">Como podemos te chamar?</label>
+                        <input type="text" id="nome" name="nome" autocomplete="given-name" maxlength="80" placeholder="Seu nome" required>
+                        <p class="campo__erro" id="nome-erro" role="alert"></p>
+                    </div>
+
+                    <div class="campo">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" autocomplete="email" inputmode="email" placeholder="nome@exemplo.com" required>
+                        <p class="campo__erro" id="email-erro" role="alert"></p>
+                    </div>
+
+                    <div class="campo">
+                        <label for="senha">Senha</label>
+                        <div class="senha-wrap">
+                            <input type="password" id="senha" name="senha" autocomplete="new-password" placeholder="Pelo menos 6 caracteres" required>
+                            <button type="button" aria-label="Mostrar senha" aria-pressed="false"><i class="fa-solid fa-eye" aria-hidden="true"></i></button>
+                        </div>
+                        <p class="campo__erro" id="senha-erro" role="alert"></p>
+                    </div>
+
+                    <div class="campo">
+                        <label for="senha2">Confirme a senha</label>
+                        <div class="senha-wrap">
+                            <input type="password" id="senha2" name="senha2" autocomplete="new-password" placeholder="Digite a senha de novo" required>
+                            <button type="button" aria-label="Mostrar senha" aria-pressed="false"><i class="fa-solid fa-eye" aria-hidden="true"></i></button>
+                        </div>
+                        <p class="campo__erro" id="senha2-erro" role="alert"></p>
+                    </div>
+
+                    <div class="campo">
+                        <label for="pergunta">Pergunta de segurança</label>
+                        <select id="pergunta" name="pergunta">
+                            <option>Qual o nome do seu primeiro animal de estimação?</option>
+                            <option>Qual a cidade onde você nasceu?</option>
+                            <option>Qual o nome da sua primeira escola?</option>
+                            <option>Qual o seu desenho ou filme favorito?</option>
+                        </select>
+                        <span class="dica">Ela serve para recuperar sua senha se você esquecer.</span>
+                    </div>
+
+                    <div class="campo">
+                        <label for="resposta">Resposta da pergunta</label>
+                        <input type="text" id="resposta" name="resposta" autocomplete="off" maxlength="80" required>
+                        <p class="campo__erro" id="resposta-erro" role="alert"></p>
+                    </div>
+
+                    <div class="campo">
+                        <label class="check" for="termos">
+                            <input type="checkbox" id="termos" name="termos" required>
+                            <span>Li e aceito os <a href="termos.html" target="_blank" rel="noopener">Termos de Uso e a Política de Privacidade</a>. Se você tem menos de 18 anos, peça para um responsável acompanhar o cadastro.</span>
+                        </label>
+                        <p class="campo__erro" id="termos-erro" role="alert"></p>
+                    </div>
+
+                    <button class="btn btn--primario btn--bloco" type="submit" id="btnCriar">Criar conta <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                </form>
+
+                <div class="divisor">ou</div>
+
+                <button class="btn btn--google btn--bloco" type="button" id="btnGoogle">
+                    <i class="fa-brands fa-google" aria-hidden="true"></i> Continuar com Google
+                </button>
+                <p class="auth__nota">Ao continuar com o Google, você também aceita os <a href="termos.html">Termos de Uso</a>.</p>
+
+                <p class="auth__rodape">Já tem conta? <a href="login.html">Entrar</a></p>
+            </div>
+        </main>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="sessao.js"></script>
+    <script src="personagens.js"></script>
+    <script src="notificacao.js"></script>
+    <script src="app.js"></script>
+    <script src="auth.js"></script>
+    <script src="cadastro.js"></script>
+</body>
+
+</html>

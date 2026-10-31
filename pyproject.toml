@@ -1,0 +1,12 @@
+[tool.ruff]
+line-length = 120
+target-version = "py313"
+
+[tool.ruff.lint]
+# E/F: erros e imports não usados; I: ordem dos imports; B: armadilhas comuns.
+select = ["E", "F", "I", "B"]
+ignore = ["B008", "B904", "E501"]  # E501: linhas longas já existem no projeto;
+# Depends(...) como valor padrão é o padrão do FastAPI
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

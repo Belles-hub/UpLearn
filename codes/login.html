@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4b1fa6">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" href="img/icone-192.png">
+    <title>Entrar — UpLearn</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="uplearn.css">
+    <script src="acess.js"></script>
+</head>
+
+<body>
+    <a class="skip-link" href="#conteudo">Pular para o formulário</a>
+
+    <div class="auth auth--login">
+        <div class="auth__topo">
+            <a class="marca" href="index.html" aria-label="UpLearn, voltar para o início"><img src="img/logo.png" alt=""></a>
+            <span class="auth__halo so-enfeite" aria-hidden="true"></span>
+            <span class="pers pers--anima so-enfeite p-a" data-p="estrela amarelo feliz acena"></span>
+            <span class="pers pers--anima so-enfeite p-b" data-p="blob rosa piscando alto"></span>
+            <span class="conf so-enfeite c-a" data-conf="brilho branco"></span>
+            <span class="conf so-enfeite c-b" data-conf="brilho amarelo"></span>
+            <span class="conf so-enfeite c-c" data-conf="bolinha ciano"></span>
+            <span class="conf so-enfeite c-d" data-conf="brilho rosa"></span>
+            <p class="auth__frase">Inteligência Artificial para aprender do seu jeito.</p>
+            <img class="auth__ilustra" src="img/inclusao.png" alt="" width="569" height="294" decoding="async">
+        </div>
+
+        <main class="auth__folha" id="conteudo">
+            <div class="auth__miolo">
+                <h1>Login</h1>
+                <p class="subtitulo">Que bom te ver de novo!</p>
+
+                <div id="avisoLogin" class="cu-notificacao-area"></div>
+
+                <form id="formLogin" novalidate>
+                    <div class="campo">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" autocomplete="email" inputmode="email" placeholder="nome@exemplo.com" required>
+                        <p class="campo__erro" id="email-erro" role="alert"></p>
+                    </div>
+
+                    <div class="campo">
+                        <label for="senha">Senha</label>
+                        <div class="senha-wrap">
+                            <input type="password" id="senha" name="senha" autocomplete="current-password" placeholder="Sua senha" required>
+                            <button type="button" aria-label="Mostrar senha" aria-pressed="false"><i class="fa-solid fa-eye" aria-hidden="true"></i></button>
+                        </div>
+                        <p class="campo__erro" id="senha-erro" role="alert"></p>
+                        <a href="redefinir-senha.html" style="justify-self:end;font-weight:700;font-size:.9rem">Esqueceu a senha?</a>
+                    </div>
+
+                    <button class="btn btn--primario btn--bloco" type="submit" id="btnEntrar">Entrar <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                </form>
+
+                <div class="divisor">ou</div>
+
+                <button class="btn btn--google btn--bloco" type="button" id="btnGoogle">
+                    <i class="fa-brands fa-google" aria-hidden="true"></i> Continuar com Google
+                </button>
+
+                <p class="auth__rodape">Ainda não tem conta? <a href="cadastro.html">Cadastre-se</a></p>
+            </div>
+        </main>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="sessao.js"></script>
+    <script src="personagens.js"></script>
+    <script src="notificacao.js"></script>
+    <script src="app.js"></script>
+    <script src="auth.js"></script>
+    <script src="login.js"></script>
+</body>
+
+</html>

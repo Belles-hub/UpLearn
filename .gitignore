@@ -1,0 +1,21 @@
+# Ambiente e segredos
+venv/
+.venv/
+.env
+.env.*
+!.env.example
+credentials/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Editor / sistema
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Bancos locais
+*.db

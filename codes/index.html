@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="UpLearn — Inteligência Artificial para aprender do seu jeito. Uma tutora que ajuda você a entender, não só a copiar a resposta.">
+    <meta name="theme-color" content="#4b1fa6">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" href="img/icone-192.png">
+    <title>UpLearn — Aprenda do seu jeito</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="uplearn.css">
+    <script src="acess.js"></script>
+</head>
+
+<body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+    <main id="conteudo">
+        <section class="hero" aria-labelledby="titulo-hero">
+            <div class="hero__interno">
+                <div>
+                    <div class="hero__marca"><img src="img/logo.png" alt="UpLearn"></div>
+                    <h1 id="titulo-hero">Aprenda no seu ritmo.</h1>
+                    <p>Estude com IA, do seu jeito.</p>
+
+                    <div class="hero__botoes">
+                        <a class="btn btn--claro" href="cadastro.html">Começar agora <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                        <a class="btn btn--contorno-claro" href="login.html">Já tenho uma conta</a>
+                    </div>
+                </div>
+
+                <div class="hero__cena" aria-hidden="true">
+                    <svg class="varinha" viewBox="0 0 400 520" aria-hidden="true" focusable="false">
+                        <defs><path id="vPonta" d="M0-15 2.8-2.8 15 0 2.8 2.8 0 15-2.8 2.8-15 0-2.8-2.8z"/></defs>
+
+                        <g class="v-varinha">
+                            <circle class="v-halo" cx="200" cy="190" r="158" fill="#fff"/>
+                            <path d="M222 262 322 486" stroke="#3a1670" stroke-width="20" stroke-linecap="round" fill="none"/>
+                            <path d="M231 276 318 470" stroke="#7a55c9" stroke-width="5" stroke-linecap="round" fill="none" opacity=".7"/>
+
+                            <g class="v-estrela">
+                                <polygon points="200.0,68.0 224.1,115.8 271.7,91.3 263.1,144.2 316.0,152.3 278.0,190.0 316.0,227.7 263.1,235.8 271.7,288.7 224.1,264.2 200.0,312.0 175.9,264.2 128.3,288.7 136.9,235.8 84.0,227.7 122.0,190.0 84.0,152.3 136.9,144.2 128.3,91.3 175.9,115.8" fill="#ffcc00" stroke="#ffcc00" stroke-width="16" stroke-linejoin="round"/>
+                                <g class="v-olhos" stroke="#2d0a4e" stroke-width="7" stroke-linecap="round" fill="none">
+                                    <path class="v-olho" d="M158 172q13 12 26 0"/>
+                                    <path class="v-olho" d="M216 172q13 12 26 0"/>
+                                </g>
+                                <path d="M128 196q72 96 144 0" stroke="#2d0a4e" stroke-width="9" stroke-linecap="round" fill="none"/>
+                            </g>
+
+                            <g class="v-brilhos">
+                                <g transform="translate(52 92) scale(1.4)"><use class="v-brilho b1" href="#vPonta" fill="#fff"/></g>
+                                <g transform="translate(352 120) scale(2.1)"><use class="v-brilho b2" href="#vPonta" fill="#fff"/></g>
+                                <g transform="translate(40 262) scale(1.7)"><use class="v-brilho b3" href="#vPonta" fill="#F59E0B"/></g>
+                                <g transform="translate(200 18) scale(1.2)"><use class="v-brilho b4" href="#vPonta" fill="#a35cd6"/></g>
+                                <g transform="translate(352 330) scale(1.2)"><use class="v-brilho b5" href="#vPonta" fill="#F59E0B"/></g>
+                                <g transform="translate(104 402) scale(1.7)"><use class="v-brilho b6" href="#vPonta" fill="#fff"/></g>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <section class="destaques" aria-labelledby="titulo-destaques">
+            <h2 id="titulo-destaques">Estudar fica divertido</h2>
+
+            <div class="grade">
+                <article class="card card--cor card--rosa destaque entrar">
+                    <span class="pers" data-p="circulo ciano bocao acena"></span>
+                    <div>
+                        <h3>IA que ensina</h3>
+                        <p>O Up explica e dá dicas.</p>
+                    </div>
+                </article>
+
+                <article class="card card--cor card--verde destaque entrar">
+                    <span class="pers" data-p="quadrado lilas piscando quadris"></span>
+                    <div>
+                        <h3>Do seu jeito</h3>
+                        <p>Resumos, quizzes ou conversa.</p>
+                    </div>
+                </article>
+
+                <article class="card card--cor card--azul destaque entrar">
+                    <span class="pers" data-p="hexagono amarelo dormindo relax"></span>
+                    <div>
+                        <h3>Acessível</h3>
+                        <p>Letra, contraste e voz ajustáveis.</p>
+                    </div>
+                </article>
+            </div>
+
+            <p class="subtitulo" style="text-align:center;margin-top:24px">
+                Apoio aos estudos — não substitui a escola.
+            </p>
+        </section>
+
+        <section class="ods" aria-labelledby="titulo-ods">
+            <h2 id="titulo-ods">Aprender é um direito de todo mundo</h2>
+            <p class="ods__sub">A UpLearn trabalha pelos Objetivos de Desenvolvimento Sustentável da ONU.</p>
+
+            <div class="ods__grade">
+                <article class="ods__card ods__card--4">
+                    <span class="ods__num" aria-hidden="true">4</span>
+                    <div>
+                        <h3>ODS 4 · Educação de Qualidade</h3>
+                        <p>Educação inclusiva, equitativa e de qualidade, com oportunidades de aprender ao longo da vida para todos.</p>
+                    </div>
+                    <span class="pers pers--anima so-enfeite" data-p="livro lilas"></span>
+                </article>
+
+                <article class="ods__card ods__card--10">
+                    <span class="ods__num" aria-hidden="true">10</span>
+                    <div>
+                        <h3>ODS 10 · Redução das Desigualdades</h3>
+                        <p>Menos desigualdade dentro dos países e entre eles, com inclusão social, econômica e política de todas as pessoas.</p>
+                    </div>
+                    <span class="pers pers--anima so-enfeite" data-p="coracao amarelo"></span>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="rodape">
+        <a href="termos.html">Termos de uso e privacidade</a> ·
+        <a href="acessibilidade.html">Acessibilidade</a>
+    </footer>
+
+    <script src="config.js"></script>
+    <script src="sessao.js"></script>
+    <script src="personagens.js"></script>
+    <script>
+        // A varinha se empolga quando a pessoa chega perto dos botões de entrar/cadastrar.
+        (function () {
+            const cena = document.querySelector('.hero__cena');
+            const botoes = document.querySelector('.hero__botoes');
+            if (!cena || !botoes) return;
+            ['mouseover', 'focusin'].forEach(function (e) { botoes.addEventListener(e, function () { cena.classList.add('empolgada'); }); });
+            ['mouseout', 'focusout'].forEach(function (e) { botoes.addEventListener(e, function () { cena.classList.remove('empolgada'); }); });
+        })();
+    </script>
+    <script>
+        // Quem já está logado vai direto pro app.
+        if (localStorage.getItem(SESSAO_TOKEN_KEY) || localStorage.getItem(SESSAO_GOOGLE_KEY)) {
+            window.location.replace('inicio.html');
+        }
+    </script>
+</body>
+
+</html>

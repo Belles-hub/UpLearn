@@ -1,0 +1,61 @@
+services:
+  - type: web
+    name: uplearn-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    healthCheckPath: /health
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: JWT_SECRET_KEY
+        sync: false
+      - key: FIREBASE_WEB_API_KEY
+        sync: false
+      - key: FIREBASE_CREDENTIALS_JSON
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GROQ_MODEL
+        sync: false
+      - key: GROQ_VISION_MODEL
+        sync: false
+      # URL do frontend (serviço "uplearn-frontend" abaixo). Se o Render
+      # precisar mudar o nome do serviço por já estar em uso, atualize
+      # este valor pra bater com a URL real gerada.
+      - key: CORS_ORIGINS_EXTRA
+        value: "https://uplearn-frontend.onrender.com"
+      # Render sempre coloca a API atrás do proxy reverso dele, então o IP
+      # real de quem chamou só vem no X-Forwarded-For — sem isso, o limite
+      # de cadastro por IP conta tudo como se fosse o IP do proxy.
+      - key: CONFIA_EM_PROXY_REVERSO
+        value: "true"
+      # Opcional: monitoramento de erro (sentry.io, tem plano gratuito).
+      # Sem essa variável, a API funciona normalmente — só não reporta
+      # erros pra lugar nenhum.
+      - key: SENTRY_DSN
+        sync: false
+
+  # Site estático (codes/): todo HTML/CSS/JS puro, sem build step.
+  - type: web
+    name: uplearn-frontend
+    runtime: static
+    buildCommand: ""
+    staticPublishPath: ./codes
+    headers:
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: Permissions-Policy
+        value: geolocation=(), payment=()
+      # O service worker precisa ser revalidado sempre, senão uma versão
+      # nova do site demora a chegar nas pessoas.
+      - path: /sw.js
+        name: Cache-Control
+        value: no-cache

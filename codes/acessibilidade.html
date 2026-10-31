@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4b1fa6">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" href="img/icone-192.png">
+    <title>Acessibilidade — UpLearn</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="uplearn.css">
+    <script src="acess.js"></script>
+</head>
+
+<body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+    <div class="app" id="app">
+        <nav id="nav"></nav>
+
+        <main id="conteudo" class="pagina" style="max-width:820px">
+            <header id="topo"></header>
+
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+                <div>
+                    <h1 class="titulo-pagina">Painel de acessibilidade</h1>
+                    <p class="subtitulo">Cada pessoa aprende de um jeito. Escolha o que funciona melhor para você — as mudanças valem na hora e ficam salvas.</p>
+                </div>
+                <span class="pers pers--anima" data-p="estrela amarelo dormindo" style="width:84px;flex:none"></span>
+            </div>
+
+            <section class="card secao" aria-labelledby="tPrev">
+                <h2 id="tPrev" style="margin-bottom:6px">Como está ficando</h2>
+                <p>Este é um texto de exemplo para você ver o efeito dos ajustes. O Up explica um passo de cada vez, com calma. Você pode ler, ouvir ou pedir Libras.</p>
+            </section>
+
+            <section class="secao" aria-labelledby="tPresets">
+                <h2 id="tPresets" style="margin-bottom:4px">Começar por um jeito pronto</h2>
+                <p class="subtitulo" style="font-size:.92rem;margin-bottom:10px">Um toque ajusta vários itens de uma vez. Depois você pode mudar o que quiser abaixo.</p>
+                <div class="acess-grade" id="gPresets" role="group" aria-labelledby="tPresets"></div>
+            </section>
+
+            <section class="secao" aria-labelledby="tFonte">
+                <h2 id="tFonte" style="margin-bottom:10px">Tamanho da letra</h2>
+                <div class="acess-grade" id="gFonte" role="group" aria-labelledby="tFonte">
+                    <button type="button" class="acess-op" data-fonte="pequena" aria-pressed="false"><i class="fa-solid fa-font" aria-hidden="true" style="font-size:.9rem"></i>Fonte pequena</button>
+                    <button type="button" class="acess-op" data-fonte="media" aria-pressed="false"><i class="fa-solid fa-font" aria-hidden="true"></i>Fonte média</button>
+                    <button type="button" class="acess-op" data-fonte="grande" aria-pressed="false"><i class="fa-solid fa-font" aria-hidden="true" style="font-size:1.7rem"></i>Fonte grande</button>
+                </div>
+            </section>
+
+            <section class="secao" aria-labelledby="tVer">
+                <h2 id="tVer" style="margin-bottom:10px">Ver e ouvir</h2>
+                <div class="acess-grade" id="gVer" role="group" aria-labelledby="tVer">
+                    <button type="button" class="acess-op" data-chave="audio" aria-pressed="false"><i class="fa-solid fa-volume-high" aria-hidden="true"></i>Áudio<small>Botão para ouvir a tela em voz alta</small></button>
+                    <button type="button" class="acess-op" data-chave="contraste" aria-pressed="false"><i class="fa-solid fa-circle-half-stroke" aria-hidden="true"></i>Alto contraste<small>Cores mais fortes e bordas grossas</small></button>
+                    <button type="button" class="acess-op" data-chave="escuro" aria-pressed="false"><i class="fa-solid fa-moon" aria-hidden="true"></i>Modo escuro<small>Menos brilho na tela</small></button>
+                    <button type="button" class="acess-op" data-chave="libras" aria-pressed="false"><i class="fa-solid fa-hands" aria-hidden="true"></i>Libras<small>Tradutor VLibras</small></button>
+                    <button type="button" class="acess-op" data-chave="lerRespostas" aria-pressed="false"><i class="fa-solid fa-comment-dots" aria-hidden="true"></i>Ler respostas do Up<small>Cada resposta nova é falada sozinha</small></button>
+                </div>
+            </section>
+
+            <section class="secao" aria-labelledby="tLer">
+                <h2 id="tLer" style="margin-bottom:10px">Entender melhor</h2>
+                <div class="acess-grade" id="gLer" role="group" aria-labelledby="tLer">
+                    <button type="button" class="acess-op" data-chave="linguagemSimples" aria-pressed="false"><i class="fa-solid fa-comments" aria-hidden="true"></i>Linguagem simples<small>O Up usa frases curtas e palavras do dia a dia</small></button>
+                </div>
+            </section>
+
+            <section class="secao" aria-labelledby="tCalma">
+                <h2 id="tCalma" style="margin-bottom:10px">Foco e calma</h2>
+                <div class="acess-grade" id="gCalma" role="group" aria-labelledby="tCalma">
+                    <button type="button" class="acess-op" data-chave="reduzir" aria-pressed="false"><i class="fa-solid fa-eye-slash" aria-hidden="true"></i>Diminuir interações<small>Sem animações nem movimento</small></button>
+                    <button type="button" class="acess-op" data-chave="foco" aria-pressed="false"><i class="fa-solid fa-bullseye" aria-hidden="true"></i>Modo foco<small>Só o essencial na tela</small></button>
+                    <button type="button" class="acess-op" data-chave="leituraFacil" aria-pressed="false"><i class="fa-solid fa-book-open-reader" aria-hidden="true"></i>Letra de leitura fácil<small>Formato de letra mais distinguível</small></button>
+                    <button type="button" class="acess-op" data-chave="guia" aria-pressed="false"><i class="fa-solid fa-ruler-horizontal" aria-hidden="true"></i>Guia de leitura<small>Uma faixa que acompanha o mouse ou o foco</small></button>
+                </div>
+            </section>
+
+            <section class="secao" aria-labelledby="tEsp">
+                <h2 id="tEsp" style="margin-bottom:10px">Espaço entre as letras e linhas</h2>
+                <div class="acess-grade" id="gEsp" role="group" aria-labelledby="tEsp">
+                    <button type="button" class="acess-op" data-esp="0" aria-pressed="false"><i class="fa-solid fa-align-left" aria-hidden="true"></i>Normal</button>
+                    <button type="button" class="acess-op" data-esp="1" aria-pressed="false"><i class="fa-solid fa-align-left" aria-hidden="true"></i>Mais espaço</button>
+                    <button type="button" class="acess-op" data-esp="2" aria-pressed="false"><i class="fa-solid fa-align-left" aria-hidden="true"></i>Bem mais espaço</button>
+                </div>
+            </section>
+
+            <div style="margin-top:28px;display:grid;gap:10px;max-width:420px">
+                <button type="button" class="btn btn--contorno btn--bloco" id="btnRedefinir"><i class="fa-solid fa-rotate-left" aria-hidden="true"></i> Redefinir tudo</button>
+                <p class="subtitulo" style="font-size:.88rem" id="notaSalvo"></p>
+            </div>
+
+            <p class="subtitulo" style="margin-top:20px;font-size:.88rem">Na UpLearn, status e tipos de atividade sempre aparecem com ícone e texto, não só com cor. Nenhum recurso aqui promete “resolver” uma dificuldade: são só opções para você escolher o que ajuda.</p>
+        </main>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="sessao.js"></script>
+    <script src="personagens.js"></script>
+    <script src="app.js"></script>
+    <script src="pagina-acessibilidade.js"></script>
+</body>
+
+</html>

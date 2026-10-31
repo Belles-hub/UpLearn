@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4b1fa6">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" href="img/icone-192.png">
+    <title>Plano de estudos — UpLearn</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="uplearn.css">
+    <script src="acess.js"></script>
+</head>
+
+<body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+    <div class="app">
+        <nav id="nav"></nav>
+
+        <main id="conteudo" class="pagina">
+            <header id="topo"></header>
+
+            <div class="topo" style="margin-bottom:12px">
+                <div>
+                    <h1 class="titulo-pagina">Seu plano de estudos</h1>
+                    <p class="subtitulo">Pequenos passos, grandes conquistas.</p>
+                </div>
+                <button type="button" class="btn btn--primario btn--p" id="btnNovo"><i class="fa-solid fa-plus" aria-hidden="true"></i> Novo plano</button>
+            </div>
+
+            <div id="avisoPlano" class="cu-notificacao-area"></div>
+
+            <div id="abas" class="opcoes" role="group" aria-label="Seus planos" style="margin-bottom:16px" hidden></div>
+
+            <div id="plano"><div class="esqueleto" style="min-height:220px" aria-hidden="true"></div></div>
+        </main>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="sessao.js"></script>
+    <script src="personagens.js"></script>
+    <script src="notificacao.js"></script>
+    <script src="app.js"></script>
+    <script src="plano-pdf.js"></script>
+    <script src="mapa-pdf.js"></script>
+    <script src="estudos.js"></script>
+</body>
+
+</html>

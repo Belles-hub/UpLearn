@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4b1fa6">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" href="img/icone-192.png">
+    <title>Converse com o Up — UpLearn</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="uplearn.css">
+    <script src="acess.js"></script>
+</head>
+
+<body>
+    <a class="skip-link" href="#mensagem">Pular para escrever uma mensagem</a>
+
+    <div class="app">
+        <nav id="nav"></nav>
+
+        <main id="conteudo" class="pagina">
+            <div class="chat-tela">
+                <header class="chat-topo">
+                    <div class="chat-topo__linha">
+                        <span class="pers pers--anima" data-p="nuvem lilas feliz chapeu"></span>
+                        <div class="chat-topo__txt">
+                            <h1>Up</h1>
+                            <p>Seu tutor de estudos. Eu ajudo você a entender.</p>
+                        </div>
+                        <button type="button" class="btn btn--contorno-claro" id="btnNova" title="Começar uma conversa nova" aria-label="Nova conversa">
+                            <i class="fa-solid fa-rotate-right" aria-hidden="true"></i>
+                        </button>
+                    </div>
+
+                    <div class="modos" id="modos" role="group" aria-label="Como você quer estudar agora"></div>
+                    <p class="modo-desc" id="modoDesc" aria-live="polite"></p>
+                </header>
+
+                <div class="mensagens" id="mensagens" role="log" aria-live="polite" aria-label="Conversa com o Up" tabindex="0"></div>
+
+                <div class="chat-rodape">
+                    <div class="sugestoes secundario" id="sugestoes"></div>
+
+                    <div class="material" id="material" role="group" aria-label="Material anexado" aria-live="polite"></div>
+
+                    <div class="chat-materia">
+                        <label for="materia">Matéria:</label>
+                        <select id="materia"><option value="">Qualquer uma</option></select>
+                    </div>
+
+                    <form class="chat-form" id="formChat" novalidate>
+                        <button type="button" class="btn btn--icone btn--anexo" id="btnAnexo" aria-label="Anexar foto ou arquivo" aria-haspopup="menu" aria-expanded="false" aria-controls="menuAnexo">
+                            <i class="fa-solid fa-paperclip" aria-hidden="true"></i>
+                        </button>
+
+                        <div class="anexo-menu" id="menuAnexo" role="menu" aria-label="O que você quer enviar?" hidden>
+                            <button type="button" class="anexo-menu__item" role="menuitem" data-anexo="camera">
+                                <span class="anexo-menu__icone"><i class="fa-solid fa-camera" aria-hidden="true"></i></span><span>Câmera</span>
+                            </button>
+                            <button type="button" class="anexo-menu__item" role="menuitem" data-anexo="fotos">
+                                <span class="anexo-menu__icone"><i class="fa-regular fa-image" aria-hidden="true"></i></span><span>Fotos</span>
+                            </button>
+                            <button type="button" class="anexo-menu__item" role="menuitem" data-anexo="arquivos">
+                                <span class="anexo-menu__icone"><i class="fa-solid fa-paperclip" aria-hidden="true"></i></span><span>Arquivos</span>
+                            </button>
+                            <p class="anexo-menu__nota">O Up lê o que você enviar só pra te ajudar e não guarda o arquivo. Envie páginas do caderno, do livro ou da atividade — evite fotos de pessoas.</p>
+                        </div>
+
+                        <div style="flex:1">
+                            <label for="mensagem" class="sr-only">Escreva sua mensagem para o Up</label>
+                            <textarea id="mensagem" rows="1" maxlength="500" placeholder="Digite sua mensagem…"></textarea>
+                            <div class="contador" id="contador" aria-live="off">0/500</div>
+                        </div>
+                        <button type="button" class="btn btn--icone btn--mic" id="btnMic" aria-label="Falar a mensagem (ditado por voz)" aria-pressed="false" hidden>
+                            <i class="fa-solid fa-microphone" aria-hidden="true"></i>
+                        </button>
+                        <button type="submit" class="btn btn--icone" id="btnEnviar" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i></button>
+                    </form>
+                    <p class="aviso-ia secundario">O Up é uma IA e pode errar. Confira com seu professor ou material quando tiver dúvida.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <input type="file" id="inCamera" accept="image/*" capture="environment" hidden>
+    <input type="file" id="inFotos" accept="image/jpeg,image/png,image/webp,image/heic,image/heif" multiple hidden>
+    <input type="file" id="inArquivos" accept=".pdf,.docx,.txt,.md,.csv,application/pdf,image/*" multiple hidden>
+
+    <dialog class="dlg-camera" id="dlgCamera" aria-labelledby="tCamera">
+        <h2 id="tCamera">Tirar uma foto</h2>
+        <p class="subtitulo" id="camAviso">Aponte a câmera para a página do caderno, do livro ou da atividade.</p>
+        <video id="camVideo" autoplay playsinline muted></video>
+        <div class="dlg-camera__botoes">
+            <button type="button" class="btn btn--suave" id="camCancelar">Cancelar</button>
+            <button type="button" class="btn btn--primario" id="camFoto"><i class="fa-solid fa-camera" aria-hidden="true"></i> Tirar foto</button>
+        </div>
+    </dialog>
+
+    <script src="config.js"></script>
+    <script src="sessao.js"></script>
+    <script src="personagens.js"></script>
+    <script src="app.js"></script>
+    <script src="anexos.js"></script>
+    <script src="tutora.js"></script>
+</body>
+
+</html>

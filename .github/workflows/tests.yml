@@ -1,0 +1,48 @@
+name: Testes
+
+# Roda a suíte a cada push/PR pra main ou master — pega quebra antes de
+# chegar em produção, em vez de descobrir depois do deploy.
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: "pip"
+
+      - name: Instalar dependências
+        run: |
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
+
+      - name: Lint (ruff)
+        run: |
+          pip install ruff
+          ruff check app tests
+
+      - name: Rodar a suíte de testes
+        env:
+          # Estes testes batem no Firestore de verdade (não tem emulador
+          # configurado no projeto) — os valores vêm dos "Secrets" deste
+          # repositório no GitHub (Settings > Secrets and variables >
+          # Actions), com os MESMOS nomes já usados no .env local e no
+          # render.yaml. Sem eles configurados aqui, o job falha na hora
+          # de conectar no Firebase/Groq, não nos testes em si.
+          FIREBASE_CREDENTIALS_JSON: ${{ secrets.FIREBASE_CREDENTIALS_JSON }}
+          JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GROQ_MODEL: ${{ secrets.GROQ_MODEL }}
+          GROQ_VISION_MODEL: ${{ secrets.GROQ_VISION_MODEL }}
+          FIREBASE_WEB_API_KEY: ${{ secrets.FIREBASE_WEB_API_KEY }}
+        run: pytest tests/ -v

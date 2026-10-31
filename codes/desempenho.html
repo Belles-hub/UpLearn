@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4b1fa6">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" href="img/icone-192.png">
+    <title>Desempenho — UpLearn</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="uplearn.css">
+    <script src="acess.js"></script>
+</head>
+
+<body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+    <div class="app">
+        <nav id="nav"></nav>
+
+        <main id="conteudo" class="pagina">
+            <header id="topo"></header>
+
+            <h1 class="titulo-pagina">Seu desempenho</h1>
+            <p class="subtitulo">Você compara sua evolução só com você mesmo — aqui não existe ranking. E nada disso mede o quão inteligente você é: é só um mapa do que você estudou.</p>
+
+            <div id="painel" style="margin-top:20px" aria-live="polite">
+                <div class="grade">
+                    <div class="esqueleto" style="min-height:140px" aria-hidden="true"></div>
+                    <div class="tiles"><div class="esqueleto" aria-hidden="true"></div><div class="esqueleto" aria-hidden="true"></div></div>
+                    <div class="esqueleto" style="min-height:220px" aria-hidden="true"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="sessao.js"></script>
+    <script src="personagens.js"></script>
+    <script src="app.js"></script>
+    <script src="desempenho.js"></script>
+</body>
+
+</html>

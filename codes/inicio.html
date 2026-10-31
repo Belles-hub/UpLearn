@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4b1fa6">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" href="img/icone-192.png">
+    <title>Início — UpLearn</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="uplearn.css">
+    <script src="acess.js"></script>
+</head>
+
+<body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+    <div class="app">
+        <nav id="nav"></nav>
+
+        <main id="conteudo" class="pagina">
+            <header id="topo"></header>
+
+            <section class="saudacao entrar" aria-labelledby="ola">
+                <div>
+                    <h1 id="ola">Olá! 👋</h1>
+                    <p class="frase" id="frase"></p>
+                </div>
+                <span class="pers pers--anima" data-p="blob rosa feliz acena"></span>
+            </section>
+
+            <div id="semana" class="semana entrar" role="group" aria-label="Dias da semana com atividade"></div>
+
+            <div id="metas" class="entrar" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:14px" hidden></div>
+
+            <div class="dash secao">
+                <div style="display:grid;gap:20px">
+                    <section aria-labelledby="tContinuar">
+                        <h2 id="tContinuar" class="sr-only">Continuar estudando</h2>
+                        <div id="continuar"><div class="esqueleto" style="min-height:170px" aria-hidden="true"></div></div>
+                    </section>
+
+                    <section aria-labelledby="tProx">
+                        <div class="secao__cab">
+                            <h2 id="tProx">Próximas atividades</h2>
+                            <a href="estudos.html">Ver plano</a>
+                        </div>
+                        <div id="proximas"><div class="esqueleto" style="min-height:150px" aria-hidden="true"></div></div>
+                    </section>
+                </div>
+
+                <section aria-labelledby="tProg" style="display:grid;gap:14px">
+                    <h2 id="tProg" class="sr-only">Seu progresso</h2>
+                    <div id="progresso"><div class="esqueleto" style="min-height:200px" aria-hidden="true"></div></div>
+                </section>
+            </div>
+
+            <section class="secao" aria-labelledby="tAtalhos">
+                <h2 id="tAtalhos" style="margin-bottom:12px">Atalhos rápidos</h2>
+                <div class="atalhos">
+                    <a class="atalho" style="background:var(--c-amarelo)" href="estudos.html?novo=1"><i class="fa-solid fa-calendar-plus" aria-hidden="true"></i><span>Criar plano de estudos</span></a>
+                    <a class="atalho" style="background:var(--c-lilas)" href="tutora.html"><i class="fa-solid fa-comments" aria-hidden="true"></i><span>Conversar com o Up</span></a>
+                    <a class="atalho" style="background:var(--c-rosa)" href="quiz.html"><i class="fa-solid fa-pencil" aria-hidden="true"></i><span>Resolver exercícios</span></a>
+                    <a class="atalho" style="background:var(--c-ciano)" href="desempenho.html"><i class="fa-solid fa-chart-simple" aria-hidden="true"></i><span>Ver desempenho</span></a>
+                    <a class="atalho atalho--largo" style="background:var(--c-laranja)" href="acessibilidade.html"><i class="fa-solid fa-universal-access" aria-hidden="true"></i><span>Ajustar acessibilidade</span></a>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="sessao.js"></script>
+    <script src="personagens.js"></script>
+    <script src="app.js"></script>
+    <script src="inicio.js"></script>
+</body>
+
+</html>

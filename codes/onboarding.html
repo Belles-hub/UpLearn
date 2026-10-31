@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4b1fa6">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" href="img/icone-192.png">
+    <title>Como você aprende — UpLearn</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="uplearn.css">
+    <script src="acess.js"></script>
+</head>
+
+<body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+    <main id="conteudo" class="pagina" style="max-width:680px;padding-bottom:40px">
+
+        <div class="passo-topo">
+            <span class="marca"><img src="img/logo.png" alt="UpLearn"></span>
+            <button type="button" class="btn btn--suave btn--p" id="btnPular">Pular por enquanto</button>
+        </div>
+
+        <ol class="passos" aria-label="Progresso" id="passos">
+            <li></li><li></li><li></li>
+        </ol>
+
+        <div id="avisoOnb" class="cu-notificacao-area"></div>
+
+        <!-- PASSO 1 -->
+        <section id="passo-1" aria-labelledby="t1">
+            <h1 id="t1">Como você prefere aprender?</h1>
+            <p class="subtitulo" style="margin:6px 0 18px">Escolha o jeito que mais combina com você. Não tem resposta certa — e você pode mudar depois.</p>
+
+            <div class="estilos" id="estilos"></div>
+        </section>
+
+        <!-- PASSO 2 -->
+        <section id="passo-2" aria-labelledby="t2" hidden>
+            <h1 id="t2">Sobre os seus estudos</h1>
+            <p class="subtitulo" style="margin:6px 0 18px">Assim o Up explica do tamanho certo. Tudo aqui é opcional.</p>
+
+            <div class="campo">
+                <label for="serie">Qual série você estuda?</label>
+                <select id="serie"><option value="">Prefiro não dizer</option></select>
+            </div>
+
+            <div class="campo">
+                <span class="rotulo" id="rotMaterias">Quais matérias quer estudar?</span>
+                <div class="opcoes" id="materias" role="group" aria-labelledby="rotMaterias"></div>
+            </div>
+
+            <div class="campo">
+                <label for="objetivo">Qual seu objetivo principal?</label>
+                <input type="text" id="objetivo" maxlength="200" placeholder="Ex.: ir bem na prova de ciências">
+            </div>
+        </section>
+
+        <!-- PASSO 3 -->
+        <section id="passo-3" aria-labelledby="t3" hidden>
+            <h1 id="t3">Do seu jeito</h1>
+            <p class="subtitulo" style="margin:6px 0 18px">Ajustes para deixar os estudos mais confortáveis. Você pode mudar tudo em Perfil e Acessibilidade.</p>
+
+            <div class="campo">
+                <span class="rotulo" id="rotSessao">Como são suas sessões de estudo?</span>
+                <div class="opcoes" id="sessoes" role="group" aria-labelledby="rotSessao"></div>
+            </div>
+
+            <div class="campo">
+                <span class="rotulo" id="rotModo">Como prefere receber as explicações?</span>
+                <div class="opcoes" id="modos" role="group" aria-labelledby="rotModo"></div>
+            </div>
+
+            <div class="campo">
+                <span class="rotulo" id="rotResp">Tamanho das respostas do Up</span>
+                <div class="opcoes" id="respostas" role="group" aria-labelledby="rotResp"></div>
+            </div>
+
+            <p class="card card--cor card--lilas" style="margin-top:8px">
+                <i class="fa-solid fa-shield-heart" aria-hidden="true"></i>
+                Essas respostas só servem para adaptar a experiência. Não fazemos diagnósticos e você controla seus dados no Perfil.
+            </p>
+        </section>
+
+        <div style="display:flex;gap:12px;margin-top:28px">
+            <button type="button" class="btn btn--suave" id="btnVoltar" hidden><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Voltar</button>
+            <button type="button" class="btn btn--primario" id="btnAvancar" style="flex:1">Continuar <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+        </div>
+    </main>
+
+    <script src="config.js"></script>
+    <script src="sessao.js"></script>
+    <script src="personagens.js"></script>
+    <script src="notificacao.js"></script>
+    <script src="app.js"></script>
+    <script src="onboarding.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+venv
+.venv
+.env
+.env.*
+credentials
+codes
+tests
+.git
+.github
+__pycache__
+.pytest_cache
