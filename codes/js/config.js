@@ -20,5 +20,5 @@ const API_BASE_URL = (function () {
 
     // URL do serviço da API no Render (render.yaml). Se o serviço for
     // renomeado ou recriado, atualize aqui também.
-    return "https://uplearn-api.onrender.com";
+    return "https://uplearn-192p.onrender.com";
 })();
