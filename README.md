@@ -35,7 +35,6 @@ O **Up**, o tutor com IA, conversa no ritmo e no formato que a pessoa prefere (f
 - [Tecnologias](#tecnologias)
 - [Rodando localmente](#rodando-localmente)
 - [Variáveis de ambiente](#variáveis-de-ambiente)
-- [API](#api)
 - [Testes](#testes)
 - [Docker](#docker-opcional)
 - [Deploy](#deploy)
@@ -144,23 +143,6 @@ Modelo completo em [`.env.example`](.env.example).
 | `CORS_ORIGINS_EXTRA` | em produção | URL(s) do frontend, separadas por vírgula |
 | `CONFIA_EM_PROXY_REVERSO` | em produção | Lê o IP real via `X-Forwarded-For` atrás do proxy |
 | `SENTRY_DSN` | não | Liga o monitoramento de erros |
-
-## API
-
-Todas as rotas, exceto `/health`, `/` e as de cadastro/login, exigem `Authorization: Bearer <token>`. O resumo abaixo cobre os grupos; o detalhe completo está em `/docs`.
-
-| Grupo | Prefixo | O que faz |
-| --- | --- | --- |
-| Autenticação | `/auth` | Registrar, login, pergunta de segurança, redefinir senha |
-| Usuários | `/usuarios` | Perfil, atualização, **exportar dados**, excluir conta |
-| Perfil | `/perfil` | Preferências de estudo e de acessibilidade |
-| Tutor Up | `/chat` | Conversa (`/chat/` e `/chat/stream`), leitura de material, resumo |
-| Planos | `/planos` | Gerar, listar, editar, mapa do plano, excluir |
-| Exercícios | `/exercicios` | Gerar quiz e salvar resultado |
-| Revisão | `/revisao` | Questões a revisar hoje e registro do resultado |
-| Desempenho | `/desempenho` | Painel completo e resumo rápido |
-| Notificações | `/notificacoes` | Listar e marcar como lidas |
-| Saúde | `/health` | Verificação de disponibilidade (sem banco nem IA) |
 
 ## Testes
 
