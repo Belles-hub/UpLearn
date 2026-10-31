@@ -5,7 +5,7 @@
    na tela (com as mudanças dele, mesmo as que ainda estão sendo salvas).
    Nada é enviado pra servidor.
 
-   A biblioteca (jsPDF, MIT) está em vendor/ — vem junto com o site, então
+   A biblioteca (jsPDF, MIT) está em js/vendor/ — vem junto com o site, então
    funciona mesmo em rede de escola que bloqueia sites de fora — e só é
    carregada quando a pessoa pede o PDF.
 
@@ -42,7 +42,7 @@ const PlanoPdf = (function () {
             promessaBiblioteca = new Promise(function (resolve, reject) {
                 const tag = document.createElement('script');
 
-                tag.src = 'vendor/jspdf.umd.min.js';
+                tag.src = 'js/vendor/jspdf.umd.min.js';
                 tag.onload = function () { resolve(window.jspdf.jsPDF); };
                 tag.onerror = function () {
                     promessaBiblioteca = null;

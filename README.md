@@ -189,10 +189,17 @@ app/                  Backend FastAPI
   schemas.py          Modelos Pydantic (entrada/saída)
   auth.py             JWT, verificação de token, checagens de dono/bloqueio
   seguranca.py        Hash de senha, IP do cliente
-codes/                Frontend estático (uma página por fluxo)
-  acess.js            Painel de acessibilidade (carregado em todas as páginas)
-  sessao.js           Sessão, chamadas à API e streaming
-  sw.js · manifest.webmanifest   PWA
+codes/                Frontend estático (sem build)
+  *.html              Uma página por fluxo (início, estudos, tutora, quiz, revisão...)
+  css/uplearn.css     Estilos de todo o app
+  js/                 Um script por página + módulos comuns
+    acess.js          Painel de acessibilidade (carregado em todas as páginas)
+    sessao.js         Sessão, chamadas à API e streaming
+    app.js            Navegação, topo, avisos e janelas
+    vendor/           Bibliotecas de terceiros (jsPDF)
+  img/                Logo, ilustrações e ícones do PWA
+  sw.js               Service worker (fica na raiz para controlar o site todo)
+  manifest.webmanifest
 tests/                Suíte pytest
 render.yaml           Blueprint de deploy (API + site estático)
 Dockerfile            Imagem da API

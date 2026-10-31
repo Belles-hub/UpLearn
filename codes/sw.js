@@ -6,13 +6,13 @@
    Para publicar uma versão nova dos arquivos, aumente VERSAO.
 ========================================= */
 
-const VERSAO = 'uplearn-v1';
+const VERSAO = 'uplearn-v2';
 
 const BASICOS = [
     'inicio.html', 'estudos.html', 'tutora.html', 'quiz.html', 'revisao.html',
     'desempenho.html', 'perfil.html', 'acessibilidade.html',
-    'uplearn.css', 'acess.js', 'config.js', 'sessao.js', 'app.js', 'personagens.js',
-    'revisao.js', 'quiz.js', 'inicio.js', 'img/logo.png', 'img/icone-192.png', 'img/icone-512.png'
+    'css/uplearn.css', 'js/acess.js', 'js/config.js', 'js/sessao.js', 'js/app.js', 'js/personagens.js',
+    'js/revisao.js', 'js/quiz.js', 'js/inicio.js', 'img/logo.png', 'img/icone-192.png', 'img/icone-512.png'
 ];
 
 self.addEventListener('install', function (evento) {
