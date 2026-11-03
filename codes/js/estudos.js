@@ -407,12 +407,12 @@ function abrirNovoPlano() {
 
 /* ---------- baixar e imprimir ---------- */
 
-// Duas saídas em PDF: a lista de atividades e o mapa (desenhado pela IA só pra esta pessoa).
+// Saídas em PDF: lista de atividades, mapa, resumo de estudo e flashcards (os três últimos desenhados pela IA só pra esta pessoa).
 function abrirBaixar() {
     const plano = atual;
 
     const s = UL.abrirSheet('Baixar e imprimir', `
-        <p class="subtitulo" style="margin-bottom:14px">Escolha o que levar pra fora do app. Os dois são PDF e ficam bons impressos, até em preto e branco.</p>
+        <p class="subtitulo" style="margin-bottom:14px">Escolha o que levar pra fora do app. Todos são PDF e ficam bons impressos, até em preto e branco.</p>
         <div class="baixar-opcoes">
             <button type="button" class="baixar-op" data-op="lista">
                 <span class="baixar-op__icone"><i class="fa-solid fa-list-check" aria-hidden="true"></i></span>
@@ -422,9 +422,18 @@ function abrirBaixar() {
                 <span class="baixar-op__icone"><i class="fa-solid fa-map-location-dot" aria-hidden="true"></i></span>
                 <span><strong>Mapa do plano</strong><small>O Up desenha um mapa só seu: os assuntos-chave, a trilha dia a dia e dicas do seu jeito de estudar.${plano.mapa ? ' Já está pronto!' : ''}</small></span>
             </button>
+            <button type="button" class="baixar-op" data-op="resumo">
+                <span class="baixar-op__icone"><i class="fa-solid fa-book-open" aria-hidden="true"></i></span>
+                <span><strong>Resumo de estudo</strong><small>Os tópicos principais em frases curtas, com espaço pra você escrever com as suas palavras.${plano.fichas ? ' Já está pronto!' : ''}</small></span>
+            </button>
+            <button type="button" class="baixar-op" data-op="flashcards">
+                <span class="baixar-op__icone"><i class="fa-solid fa-clone" aria-hidden="true"></i></span>
+                <span><strong>Flashcards</strong><small>Cartas de pergunta e resposta pra recortar e treinar a memória.${plano.fichas ? ' Já estão prontas!' : ''}</small></span>
+            </button>
         </div>
         <div id="baixarEstado" role="status" aria-live="polite"></div>
-        ${plano.mapa ? '<button type="button" class="btn btn--suave btn--p" data-op="mapa-novo"><i class="fa-solid fa-rotate" aria-hidden="true"></i> Pedir um mapa novo ao Up</button>' : ''}`);
+        ${plano.mapa ? '<button type="button" class="btn btn--suave btn--p" data-op="mapa-novo"><i class="fa-solid fa-rotate" aria-hidden="true"></i> Pedir um mapa novo ao Up</button>' : ''}
+        ${plano.fichas ? '<button type="button" class="btn btn--suave btn--p" data-op="fichas-novas"><i class="fa-solid fa-rotate" aria-hidden="true"></i> Pedir resumo e cartões novos ao Up</button>' : ''}`);
 
     const estado = s.el.querySelector('#baixarEstado');
     const botoes = Array.from(s.el.querySelectorAll('[data-op]'));
@@ -447,6 +456,23 @@ function abrirBaixar() {
             if (op === 'lista') {
                 ocupado(true, 'Montando o PDF…');
                 await PlanoPdf.baixar(JSON.parse(JSON.stringify(plano)));
+                s.fechar();
+                UL.toast('PDF pronto! Ele foi para a sua pasta de downloads.', 'sucesso');
+                return;
+            }
+
+            // Resumo e flashcards vêm da mesma chamada à IA e ficam guardados no plano.
+            if (op === 'resumo' || op === 'flashcards' || op === 'fichas-novas') {
+                if (!plano.fichas || op === 'fichas-novas') {
+                    ocupado(true, 'O Up está preparando o seu material… isso leva alguns segundos.');
+                    plano.fichas = await api('/planos/' + encodeURIComponent(plano.id) + '/fichas', { metodo: 'POST' });
+                }
+
+                ocupado(true, 'Montando o PDF…');
+
+                if (op === 'flashcards') await FichasPdf.flashcards(JSON.parse(JSON.stringify(plano)));
+                else await FichasPdf.resumo(JSON.parse(JSON.stringify(plano)));
+
                 s.fechar();
                 UL.toast('PDF pronto! Ele foi para a sua pasta de downloads.', 'sucesso');
                 return;

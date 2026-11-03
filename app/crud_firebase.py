@@ -430,6 +430,7 @@ def _plano_dict(documento) -> dict:
         "criado_em": dados.get("criado_em"),
         "tarefas": dados.get("tarefas", []),
         "mapa": dados.get("mapa"),
+        "fichas": dados.get("fichas"),
     }
 
 
@@ -489,6 +490,18 @@ def salvar_mapa_plano(uid: str, plano_id: str, mapa: dict) -> dict | None:
         return None
 
     referencia.update({"mapa": mapa})
+
+    return _plano_dict(referencia.get())
+
+
+def salvar_fichas_plano(uid: str, plano_id: str, fichas: dict) -> dict | None:
+    """Guarda o resumo e os flashcards no plano (pra baixar de novo sem gastar IA)."""
+    referencia = _colecao_planos(uid).document(plano_id)
+
+    if not referencia.get().exists:
+        return None
+
+    referencia.update({"fichas": fichas})
 
     return _plano_dict(referencia.get())
 

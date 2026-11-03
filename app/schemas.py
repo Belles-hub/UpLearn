@@ -360,6 +360,23 @@ class MapaPlano(BaseModel):
     gerado_em: datetime | None = None
 
 
+class FichaTopico(BaseModel):
+    titulo: str = Field(max_length=70)
+    pontos: list[str] = Field(default=[], max_length=5)
+
+
+class FichaCartao(BaseModel):
+    frente: str = Field(max_length=130)
+    verso: str = Field(max_length=200)
+
+
+class FichasPlano(BaseModel):
+    """Resumo de estudo e flashcards que a IA prepara pro plano (os PDFs são montados no navegador)."""
+    resumo: list[FichaTopico] = Field(default=[], max_length=8)
+    cartoes: list[FichaCartao] = Field(default=[], max_length=20)
+    gerado_em: datetime | None = None
+
+
 class PlanoResponse(BaseModel):
     id: str
     titulo: str
@@ -371,6 +388,7 @@ class PlanoResponse(BaseModel):
     criado_em: datetime | None = None
     tarefas: list[Tarefa]
     mapa: MapaPlano | None = None
+    fichas: FichasPlano | None = None
 
 
 # ---------------------------------------------------------------------------

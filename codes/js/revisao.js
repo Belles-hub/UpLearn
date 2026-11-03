@@ -29,6 +29,20 @@ document.addEventListener('DOMContentLoaded', function () {
             montarPersonagens(tela);
         }
 
+        // Leva as questões de hoje pra fora do app (caderno em PDF, com gabarito).
+        async function baixarCaderno(botao) {
+            botao.disabled = true;
+
+            try {
+                await FichasPdf.revisao(JSON.parse(JSON.stringify(fila)), UL.usuario && UL.usuario.nome);
+                UL.toast('Caderno pronto! Ele foi para a sua pasta de downloads.', 'sucesso');
+            } catch (erro) {
+                UL.toast(erro.message || 'Não foi possível gerar o PDF agora.', 'erro');
+            } finally {
+                botao.disabled = false;
+            }
+        }
+
         function desenharCartao() {
             const c = fila[indice];
             const pct = Math.round(100 * indice / fila.length);
@@ -50,7 +64,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     </div>
 
                     <div id="retorno" aria-live="polite"></div>
-                </section>`;
+                </section>
+                <button type="button" class="btn btn--suave btn--p" id="btnCaderno" title="Baixar as questões de hoje em PDF, com gabarito"><i class="fa-solid fa-file-pdf" aria-hidden="true"></i> Baixar caderno de revisão (PDF)</button>`;
+
+            document.getElementById('btnCaderno').addEventListener('click', function (e) { baixarCaderno(e.currentTarget); });
 
             const alternativas = tela.querySelector('.alternativas');
 

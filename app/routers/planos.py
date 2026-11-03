@@ -7,6 +7,7 @@ from app.auth import verificar_token
 from app.erros import exigir_encontrado, traduzir_erros_da_ia
 from app.routers.chat import registrar_uso_ou_429
 from app.services import analise
+from app.services import fichas as servico_fichas
 from app.services import mapa as servico_mapa
 from app.services import planos as servico_planos
 
@@ -105,6 +106,30 @@ def gerar_mapa(plano_id: str, usuario_auth=Depends(verificar_token)):
     salvo = crud_firebase.salvar_mapa_plano(uid, plano_id, mapa)
 
     return exigir_encontrado(salvo, "Plano não encontrado.")["mapa"]
+
+
+@router.post("/{plano_id}/fichas", response_model=schemas.FichasPlano)
+def gerar_fichas(plano_id: str, usuario_auth=Depends(verificar_token)):
+    """A IA prepara o resumo de estudo e os flashcards do plano. Ficam guardados no plano."""
+    uid = usuario_auth["uid"]
+
+    usuario = exigir_encontrado(crud_firebase.buscar_usuario(uid), "Usuário não encontrado.")
+    plano = exigir_encontrado(crud_firebase.buscar_plano(uid, plano_id), "Plano não encontrado.")
+
+    registrar_uso_ou_429(uid)
+
+    with traduzir_erros_da_ia("Não foi possível preparar os cartões agora. Tente novamente em instantes."):
+        try:
+            fichas = servico_fichas.gerar_fichas(usuario["preferencias"], plano)
+        except (ValueError, KeyError, TypeError, AttributeError):
+            raise HTTPException(
+                status_code=502,
+                detail="O Up não conseguiu preparar os cartões desta vez. Tente de novo em instantes."
+            )
+
+    salvo = crud_firebase.salvar_fichas_plano(uid, plano_id, fichas)
+
+    return exigir_encontrado(salvo, "Plano não encontrado.")["fichas"]
 
 
 @router.delete("/{plano_id}")
