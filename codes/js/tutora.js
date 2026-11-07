@@ -18,6 +18,9 @@ const SUGESTOES_POR_MODO = {
     desafio: ['Me dá um desafio de raciocínio', 'Um desafio de ciências, por favor', 'Um problema de matemática mais difícil']
 };
 
+// Frases que mostram que a pessoa quer levar o estudo pra fora do chat.
+const PEDIDO_DE_PDF = /\bpdf\b|flash\s?-?cards?|mapa\s+mental|cart(?:ao|ão|oes|ões)\s+de\s+din[aâ]mica|din[aâ]micas?\s+de\s+revis/i;
+
 const SUGESTOES_MATERIAL = [
     'Explique este material passo a passo',
     'Crie exercícios sobre isso',
@@ -102,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return linhaUp(`<div class="bolha bolha--up${msg.erro ? ' erro' : ''}">
                     ${msg.erro ? '<i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> ' : ''}${msg.erro ? UL.esc(msg.content) : formatarRespostaIA(msg.content)}
                     ${msg.erro ? '' : `<button type="button" class="bolha__ouvir" data-ouvir aria-label="Ouvir esta resposta em voz alta"><i class="fa-solid fa-volume-high" aria-hidden="true"></i></button>`}
-                </div>`);
+                </div>${msg.acaoPdf ? '<button type="button" class="btn btn--suave btn--p" data-criar-pdf style="margin-top:8px"><i class="fa-solid fa-file-pdf" aria-hidden="true"></i> Criar PDF</button>' : ''}`);
         }
 
         function desenhar() {
@@ -315,6 +318,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 if (!resposta) throw new Error('O Up não respondeu desta vez. Tente de novo.');
 
+                // Pediu PDF, flashcards, mapa ou dinâmicas? Deixa o botão que cria o PDF à mão.
+                if (PEDIDO_DE_PDF.test(texto)) resposta.acaoPdf = true;
+
                 // "Ler respostas do Up": fala sozinha, sem a pessoa precisar clicar.
                 if (Acess.estado.lerRespostas) Acess.falar(paraLeituraEmVoz(resposta.content));
 
@@ -387,6 +393,8 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         listaEl.addEventListener('click', function (e) {
+            if (e.target.closest('[data-criar-pdf]')) { abrirMaterial(); return; }
+
             const botao = e.target.closest('[data-ouvir]');
 
             if (!botao) return;
