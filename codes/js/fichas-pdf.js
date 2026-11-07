@@ -1,11 +1,13 @@
 /* =========================================
    RESUMO, FLASHCARDS E CADERNO DE REVISÃO EM PDF (pra imprimir)
 
-   Três saídas, todas montadas aqui no navegador (nada vai pra servidor):
+   Quatro saídas, todas montadas aqui no navegador (nada vai pra servidor):
 
      resumo(plano)      — resumo de estudo do plano, com espaço pra anotar
      flashcards(plano)  — cartas pra recortar: páginas de frente e de verso,
                           com o verso espelhado pra imprimir frente e verso
+                          (serve ao plano e à conversa: só lê plano.fichas.cartoes)
+     dinamicas(dados)   — cartas de atividades pra revisar de um jeito diferente
      revisao(cartoes)   — caderno com as questões da revisão do dia e o
                           gabarito (com explicação) na última página
 
@@ -271,6 +273,91 @@ const FichasPdf = (function () {
 
 
     /* =========================================
+       CARTÕES DE DINÂMICAS (atividades de revisão pra recortar)
+    ========================================= */
+
+    async function dinamicas(material) {
+        const lista = material && material.dinamicas;
+
+        if (!lista || !lista.length) throw new Error('Ainda não há dinâmicas para baixar.');
+
+        const d = await abrirDocumento('Cartões de dinâmicas - ' + material.titulo, material.materia || '');
+        const doc = d.doc;
+        const altura = 80;
+        const porPagina = 6;
+
+        function desenharCarta(x, y, indice) {
+            const item = lista[indice];
+            const largTexto = CARTA_L - 12;
+            const pastel = PASTEIS[indice % PASTEIS.length];
+
+            d.cor(C.TINTA_3, 'desenho');
+            doc.setLineWidth(0.25);
+            doc.setLineDashPattern([1.6, 1.6], 0);
+            doc.rect(x, y, CARTA_L, altura);
+            doc.setLineDashPattern([], 0);
+
+            d.cor(pastel, 'preencher');
+            doc.rect(x + 3, y + 3, CARTA_L - 6, 6, 'F');
+            d.texto('DINÂMICA ' + (indice + 1) + '  ·  ' + item.tempo_min + ' min', x + 5, y + 7.3, 7.5, C.TINTA, true);
+
+            // Maior letra em que título, passos e dica cabem na carta.
+            let tamanho = 10;
+            let titulo;
+            let passos;
+            let dica;
+
+            function medir() {
+                titulo = d.quebrar(item.nome, largTexto, tamanho + 2, true);
+                passos = item.passos.map(function (p) { return d.quebrar(p, largTexto - 6, tamanho, false); });
+                dica = item.dica ? d.quebrar('Dica: ' + item.dica, largTexto, tamanho - 1, false) : [];
+
+                return titulo.length * linhaMm(tamanho + 2) + 2
+                    + passos.reduce(function (s, l) { return s + l.length * linhaMm(tamanho) + 1.4; }, 0)
+                    + dica.length * linhaMm(tamanho - 1) + 2;
+            }
+
+            while (medir() > altura - 22 && tamanho > 7) tamanho -= 0.5;
+
+            let yy = y + 16;
+
+            d.texto(titulo, x + 6, yy, tamanho + 2, C.TINTA, true);
+            yy += titulo.length * linhaMm(tamanho + 2) + 2;
+
+            passos.forEach(function (linhas, k) {
+                d.cor(C.ROXO, 'preencher');
+                doc.circle(x + 8, yy - 1, 2, 'F');
+                d.texto(String(k + 1), x + 8, yy - 0.2, 6.5, [255, 255, 255], true, { align: 'center' });
+                d.texto(linhas, x + 12, yy, tamanho, C.TINTA_2, false);
+                yy += linhas.length * linhaMm(tamanho) + 1.4;
+            });
+
+            if (dica.length) d.texto(dica, x + 6, yy + 2, tamanho - 1, C.ROXO, true);
+        }
+
+        const paginas = Math.ceil(lista.length / porPagina);
+
+        for (let p = 0; p < paginas; p++) {
+            if (p > 0) doc.addPage();
+
+            d.cabecalho('CARTÕES DE DINÂMICAS');
+            d.texto('Recorte nas linhas tracejadas, embaralhe e sorteie uma dinâmica pra revisar.', MARGEM, 28, 8, C.TINTA_3, false);
+
+            for (let k = 0; k < porPagina; k++) {
+                const indice = p * porPagina + k;
+
+                if (indice >= lista.length) break;
+
+                desenharCarta(GRADE_X + (k % 2) * CARTA_L, GRADE_Y + 6 + Math.floor(k / 2) * altura, indice);
+            }
+        }
+
+        d.rodape('UpLearn  ·  Dinâmicas sugeridas pelo Up (IA). Confira o conteúdo com seu professor ou material.');
+        doc.save(nomeDoArquivo('cartoes-de-dinamicas', material));
+    }
+
+
+    /* =========================================
        CADERNO DE REVISÃO
     ========================================= */
 
@@ -350,6 +437,6 @@ const FichasPdf = (function () {
         doc.save('caderno-de-revisao.pdf');
     }
 
-    return { resumo: resumo, flashcards: flashcards, revisao: revisao };
+    return { resumo: resumo, flashcards: flashcards, dinamicas: dinamicas, revisao: revisao };
 
 })();

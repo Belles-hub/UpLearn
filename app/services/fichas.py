@@ -77,12 +77,9 @@ def _montar_pedido(preferencias: dict, plano: dict) -> str:
     )
 
 
-def validar_fichas(bruto) -> dict:
-    """Devolve as fichas limpas e dentro dos limites. Levanta ValueError se a IA
-    não devolveu o mínimo aproveitável (o router vira erro 502)."""
-    if not isinstance(bruto, dict):
-        raise ValueError("A IA não devolveu as fichas.")
-
+def validar_resumo(bruto: dict) -> list[dict]:
+    """Tópicos do resumo, limpos e dentro dos limites. ValueError se a IA não
+    devolveu o mínimo aproveitável."""
     resumo = []
 
     for item in bruto.get("resumo") if isinstance(bruto.get("resumo"), list) else []:
@@ -103,6 +100,12 @@ def validar_fichas(bruto) -> dict:
     if len(resumo) < MIN_TOPICOS:
         raise ValueError("A IA não devolveu tópicos suficientes para o resumo.")
 
+    return resumo
+
+
+def validar_cartoes(bruto: dict) -> list[dict]:
+    """Pares frente/verso, limpos e dentro dos limites. ValueError se a IA não
+    devolveu o mínimo aproveitável."""
     cartoes = []
 
     for item in bruto.get("cartoes") if isinstance(bruto.get("cartoes"), list) else []:
@@ -121,7 +124,16 @@ def validar_fichas(bruto) -> dict:
     if len(cartoes) < MIN_CARTOES:
         raise ValueError("A IA não devolveu cartões suficientes.")
 
-    return {"resumo": resumo, "cartoes": cartoes, "gerado_em": datetime.now(timezone.utc)}
+    return cartoes
+
+
+def validar_fichas(bruto) -> dict:
+    """Devolve as fichas limpas e dentro dos limites. Levanta ValueError se a IA
+    não devolveu o mínimo aproveitável (o router vira erro 502)."""
+    if not isinstance(bruto, dict):
+        raise ValueError("A IA não devolveu as fichas.")
+
+    return {"resumo": validar_resumo(bruto), "cartoes": validar_cartoes(bruto), "gerado_em": datetime.now(timezone.utc)}
 
 
 def gerar_fichas(preferencias: dict, plano: dict) -> dict:

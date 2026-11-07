@@ -405,6 +405,108 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
+        /* ---- material de revisão em PDF (flashcards, mapa mental, dinâmicas) ---- */
+
+        // Guarda o que o Up já preparou nesta conversa, pra baixar de novo sem gastar IA.
+        // Vale enquanto a conversa e o material não mudarem.
+        let cacheEstudo = { chave: '', itens: {} };
+
+        function chaveDaConversa() {
+            return estado.mensagens.length + '|' + estado.materia + '|' + estado.material.map(function (m) { return m.id; }).join(',');
+        }
+
+        function abrirMaterial() {
+            const respostas = estado.mensagens.filter(function (m) { return !m.erro; });
+
+            if (!respostas.length && !estado.material.length) {
+                UL.toast('Converse um pouco com o Up (ou anexe o material da aula) antes de criar o material.', 'info');
+                return;
+            }
+
+            if (cacheEstudo.chave !== chaveDaConversa()) cacheEstudo = { chave: chaveDaConversa(), itens: {} };
+
+            const pronto = function (tipo) { return cacheEstudo.itens[tipo] ? ' Já está pronto!' : ''; };
+
+            const s = UL.abrirSheet('Material de revisão', `
+                <p class="subtitulo" style="margin-bottom:14px">O Up cria o material em cima da conversa${estado.material.length ? ' e do que você anexou' : ''}. É PDF e fica bom impresso, até em preto e branco.</p>
+                <div class="baixar-opcoes">
+                    <button type="button" class="baixar-op" data-op="flashcards">
+                        <span class="baixar-op__icone"><i class="fa-solid fa-clone" aria-hidden="true"></i></span>
+                        <span><strong>Flashcards</strong><small>Cartas de pergunta e resposta pra recortar e treinar a memória.${pronto('flashcards')}</small></span>
+                    </button>
+                    <button type="button" class="baixar-op" data-op="mapa">
+                        <span class="baixar-op__icone"><i class="fa-solid fa-diagram-project" aria-hidden="true"></i></span>
+                        <span><strong>Mapa mental</strong><small>As ideias principais em galhos, com dicas pra memorizar e perguntas pra se testar.${pronto('mapa')}</small></span>
+                    </button>
+                    <button type="button" class="baixar-op" data-op="dinamicas">
+                        <span class="baixar-op__icone"><i class="fa-solid fa-dice" aria-hidden="true"></i></span>
+                        <span><strong>Cartões de dinâmicas</strong><small>Atividades curtas e divertidas pra revisar sozinho ou com um colega.${pronto('dinamicas')}</small></span>
+                    </button>
+                </div>
+                <div id="materialEstado" role="status" aria-live="polite"></div>`);
+
+            const estadoEl = s.el.querySelector('#materialEstado');
+            const botoes = Array.from(s.el.querySelectorAll('[data-op]'));
+
+            function ocupado(ligado, mensagem) {
+                botoes.forEach(function (b) { b.disabled = ligado; });
+                estadoEl.innerHTML = ligado
+                    ? `<p class="carregando-ia" style="padding:14px 0"><span><i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> ${UL.esc(mensagem)}</span></p>`
+                    : '';
+            }
+
+            s.el.addEventListener('click', async function (e) {
+                const botao = e.target.closest('[data-op]');
+
+                if (!botao) return;
+
+                const tipo = botao.dataset.op;
+                const chave = cacheEstudo.chave;
+
+                try {
+                    let dados = cacheEstudo.itens[tipo];
+
+                    if (!dados) {
+                        ocupado(true, 'O Up está preparando o seu material… isso leva alguns segundos.');
+                        dados = await api('/chat/estudo', {
+                            metodo: 'POST',
+                            corpo: {
+                                tipo: tipo,
+                                materia: estado.materia || null,
+                                historico: respostas.slice(-MAX_MENSAGENS_ENVIADAS).map(function (m) { return { role: m.role, content: m.content }; }),
+                                material: estado.material.map(function (m) { return { nome: m.nome, texto: m.texto }; })
+                            }
+                        });
+
+                        // Só guarda se a conversa não mudou enquanto o Up trabalhava.
+                        if (chave === cacheEstudo.chave) cacheEstudo.itens[tipo] = dados;
+                    }
+
+                    ocupado(true, 'Montando o PDF…');
+
+                    const materia = estado.materia || 'Revisão';
+
+                    if (tipo === 'flashcards') {
+                        await FichasPdf.flashcards({ titulo: dados.titulo, materia: materia, conteudo: dados.titulo, fichas: { cartoes: dados.cartoes } });
+                    } else if (tipo === 'mapa') {
+                        await MapaPdf.baixar({ titulo: dados.titulo, materia: materia, conteudo: dados.titulo, tarefas: [], mapa: dados.mapa }, UL.usuario && UL.usuario.nome);
+                    } else {
+                        await FichasPdf.dinamicas({ titulo: dados.titulo, materia: materia, dinamicas: dados.dinamicas });
+                    }
+
+                    s.fechar();
+                    UL.toast('PDF pronto! Ele foi para a sua pasta de downloads.', 'sucesso');
+
+                } catch (erro) {
+                    console.error(erro);
+                    ocupado(false);
+                    estadoEl.innerHTML = `<p class="cu-notificacao cu-notificacao--erro" role="alert"><span class="cu-notificacao-texto">${UL.esc(erro instanceof TypeError ? 'Não consegui falar com o servidor. Confira sua internet e tente de novo.' : (erro.message || 'Não foi possível gerar o PDF agora.'))}</span></p>`;
+                }
+            });
+        }
+
+        document.getElementById('btnMaterial').addEventListener('click', abrirMaterial);
+
         document.getElementById('btnNova').addEventListener('click', async function () {
             if (!estado.mensagens.length && !estado.material.length) return;
 
@@ -414,6 +516,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             estado.mensagens = [];
             estado.material = [];
+            cacheEstudo = { chave: '', itens: {} };
             pendentes = [];
             guardar();
             desenharMaterial();

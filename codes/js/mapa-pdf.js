@@ -50,7 +50,7 @@ const MapaPdf = (function () {
     function paradasDoPlano(plano, mapa) {
         const porDia = {};
 
-        plano.tarefas.forEach(function (t) {
+        (plano.tarefas || []).forEach(function (t) {
             const chave = t.dia || '';
 
             (porDia[chave] = porDia[chave] || []).push(t);
@@ -136,7 +136,7 @@ const MapaPdf = (function () {
            PÁGINA 1 — O MAPA
         ========================================= */
 
-        cabecalho('MAPA DO PLANO DE ESTUDOS');
+        cabecalho(plano.tarefas && plano.tarefas.length ? 'MAPA DO PLANO DE ESTUDOS' : 'MAPA MENTAL');
 
         const tituloMapa = primeiroNome ? 'Mapa de estudos de ' + primeiroNome : 'Mapa de estudos';
 
@@ -276,9 +276,10 @@ const MapaPdf = (function () {
            PÁGINAS 2+ — A TRILHA
         ========================================= */
 
-        const paradas = paradasDoPlano(plano, mapa);
+        // Mapa que nasceu de uma conversa não tem dias nem atividades: sem trilha.
+        const paradas = plano.tarefas && plano.tarefas.length ? paradasDoPlano(plano, mapa) : [];
 
-        paradas.push({ tipo: 'chegada' });
+        if (paradas.length) paradas.push({ tipo: 'chegada' });
 
         const POR_PAGINA = 10;
 

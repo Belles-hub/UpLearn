@@ -7,7 +7,7 @@ from fastapi.responses import StreamingResponse
 from app import crud_firebase, schemas
 from app.auth import verificar_token
 from app.erros import exigir_encontrado, traduzir_erros_da_ia
-from app.services import adaptation, ia, material
+from app.services import adaptation, estudo_chat, ia, material
 
 router = APIRouter(
     prefix="/chat",
@@ -152,6 +152,38 @@ def ler_material(
         raise HTTPException(status_code=erro.status, detail=str(erro))
 
     return schemas.MaterialLido(nome=preparado.nome, tipo=tipo, texto=texto, aviso=aviso)
+
+
+@router.post("/estudo", response_model=schemas.EstudoChatResponse)
+def material_de_estudo(
+    dados: schemas.EstudoChatRequest,
+    usuario_auth=Depends(verificar_token)
+):
+    """Flashcards, mapa mental ou cartões de dinâmicas feitos a partir da
+    conversa (e do material anexado). Nada é guardado: o PDF sai no navegador."""
+    uid = usuario_auth["uid"]
+
+    usuario = exigir_encontrado(crud_firebase.buscar_usuario(uid), "Usuário não encontrado.")
+
+    if not dados.historico and not dados.material:
+        raise HTTPException(status_code=422, detail="Converse com o Up sobre o assunto antes de criar o material.")
+
+    registrar_uso_ou_429(uid)
+
+    with traduzir_erros_da_ia("Não foi possível preparar o material agora. Tente novamente em instantes."):
+        try:
+            return estudo_chat.gerar(
+                dados.tipo,
+                usuario["preferencias"],
+                dados.materia,
+                [item.model_dump() for item in dados.historico],
+                [item.model_dump() for item in dados.material],
+            )
+        except (ValueError, KeyError, TypeError, AttributeError):
+            raise HTTPException(
+                status_code=502,
+                detail="O Up não conseguiu preparar o material desta vez. Tente de novo em instantes."
+            )
 
 
 @router.get("/resumo", response_model=schemas.ChatResponse)

@@ -391,6 +391,39 @@ class PlanoResponse(BaseModel):
     fichas: FichasPlano | None = None
 
 
+# Material de revisão feito a partir da conversa do chat (os PDFs são montados no navegador).
+
+class EstudoChatRequest(BaseModel):
+    tipo: Literal["flashcards", "mapa", "dinamicas"]
+    materia: str | None = Field(default=None, max_length=40)
+    historico: list[ChatMensagem] = Field(default=[], max_length=40)
+    material: list[MaterialAnexado] = Field(default=[], max_length=MAX_MATERIAIS_POR_CONVERSA)
+
+    @field_validator("material")
+    @classmethod
+    def material_nao_passa_do_limite(cls, itens: list[MaterialAnexado]) -> list[MaterialAnexado]:
+        if sum(len(m.texto) for m in itens) > MAX_CHARS_TODO_MATERIAL:
+            raise ValueError("Material demais nesta conversa. Remova algum arquivo.")
+
+        return itens
+
+
+class DinamicaEstudo(BaseModel):
+    nome: str = Field(max_length=60)
+    tempo_min: int = Field(ge=1, le=120)
+    passos: list[str] = Field(default=[], max_length=4)
+    dica: str = ""
+
+
+class EstudoChatResponse(BaseModel):
+    tipo: Literal["flashcards", "mapa", "dinamicas"]
+    titulo: str
+    cartoes: list[FichaCartao] = Field(default=[], max_length=20)
+    mapa: MapaPlano | None = None
+    dinamicas: list[DinamicaEstudo] = Field(default=[], max_length=6)
+    gerado_em: datetime | None = None
+
+
 # ---------------------------------------------------------------------------
 # Exercícios (quiz) e desempenho
 # ---------------------------------------------------------------------------
